@@ -1,0 +1,6 @@
+#!/bin/bash
+S=$(curl -s ifconfig.me | cut -d. -f1,2)
+s=$(ip route sh match 0/0 | awk '{ print $3 }')
+T=$(traceroute 1.1.1.1 | fgrep "$S" | awk '{ print $3 }' | sed 's/[()]//g')
+echo "ISP Gateway is: $T"
+echo "LAN Gateway is: $s"
